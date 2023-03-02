@@ -1,17 +1,17 @@
 use bevy::app::App;
-use bevy::prelude::{default, Plugin, WindowDescriptor, WindowPlugin};
-use bevy::render::camera::RenderTarget::Window;
+use bevy::prelude::{default, Plugin, Query, Res, ResMut, Window, WindowDescriptor, WindowPlugin, Windows};
 use bevy::window::PresentMode;
 
-pub(crate) fn get_window_plugin() -> WindowPlugin {
-    return WindowPlugin {
-        window: WindowDescriptor {
-            title: "RimWorld-rs".to_string(),
-            width: 1280.,
-            height: 720.,
-            present_mode: PresentMode::AutoVsync,
-            ..default()
-        },
-        ..default()
+pub(crate) struct AppWindowPlugin;
+
+impl Plugin for AppWindowPlugin {
+
+    fn build(&self, app: &mut App) {
+        app.add_startup_system(setup_window);
     }
+}
+
+fn setup_window(mut windows: ResMut<Windows>) {
+    let mut window = windows.primary_mut();
+    window.set_title("RimWorld-rs".to_string())
 }

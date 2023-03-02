@@ -1,0 +1,3 @@
+
+#[derive(Component)]
+struct Pawn;
